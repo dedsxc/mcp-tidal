@@ -1,0 +1,36 @@
+name: "Renovate: Dry-run"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/renovate.json5"
+      - ".github/renovate/**.json5"
+  
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Verify Renovate Configuration
+        uses: suzuki-shunsuke/github-action-renovate-config-validator@ca480cb7ec89a9e1cd8c214ad33bda1617184027 # v2.0.0
+
+      - name: Generate Token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2
+        id: app-token
+        with:
+          app-id: "${{ secrets.BOT_APP_ID }}"
+          private-key: "${{ secrets.BOT_APP_PRIV_KEY }}"
+
+      - name: Renovate
+        uses: renovatebot/github-action@e23f4d9675532445118c886434f5a34292b630b4 # v46.0.2@v34.147.0
+        with:
+          configurationFile: .github/renovate.json5
+          token: '${{ steps.app-token.outputs.token }}'
+        env:
+          LOG_LEVEL: debug
+          RENOVATE_HOST_RULES: '[{"hostType": "docker", "domainName": "ghcr.io", "username": "${{ secrets.CI_BOT_USERNAME }}","password": "${{ secrets.CI_BOT_TOKEN }}"}]'
+          # https://docs.renovatebot.com/configuration-options/#mode
+          RENOVATE_MODE: silent
