@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.1.1...mcp-tidal-1.1.2) (2026-02-15)
+
+
+### Bug Fixes
+
+* remove OAuth client_id/client_secret from config (use tidalapi BrowserSession) ([a88dab0](https://github.com/dedsxc/mcp-tidal/commit/a88dab0a6f2cde0b6473580d2b3eab99dad4dadb))
+
 ## [1.1.1](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.1.0...mcp-tidal-1.1.1) (2026-02-15)
 
 
