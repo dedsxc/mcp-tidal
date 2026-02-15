@@ -1,40 +1,79 @@
-<div align="center">
-  <img width="200" height=auto src=".github/logo.png" />
-</div>
+# MCP TIDAL Server 🎵
 
-# repo-template
+Model Context Protocol (MCP) server for TIDAL Music. Enables AI assistants (Claude, etc.) to access TIDAL catalog: search, playlists, favorites, and recommendations.
 
-A template project.
+> **Note**: Uses [tidalapi](https://github.com/tamland/python-tidal) which accesses TIDAL's internal APIs (reverse-engineered).
 
-# Configuration
-
-## Containers
-
-In `containers` folder:
-- Create a new folder image. The name of the folder will be the name of the docker image.
-- Add `PLATFORM` file to build image for a dedicated platform. Can add multiple platform separated by comma (i.g linux/amd64,linux/arm64)
-- Add the new image in `.github/release-please-config.json` to get auto tag and changelog.
-
-## Helm charts
-
-In `helm` folder:
-- Create a new folder image. The name of the folder will be the name of the helm chart.
-- Add the new chart in `.github/release-please-config.json` to get auto tag and changelog.
-
-## Pre-commit
-
-Pre-requisite
-```bash
-python3 -m pip install pre-commit
-# Detect-secrets
-python3 -m pip install detect-secrets
-secrets-secrets scan > .secrets.baseline
-```
+## Installation
 
 ```bash
-pre-commit install
+git clone https://github.com/yourusername/mcp-tidal.git
+cd mcp-tidal
+pip install -e .
 ```
 
-## Enforcing conventional commit
+## Configuration
 
-This repo follows the angular [conventional commits](https://conventionalcommits.org/).
+### 1. Authentication
+
+First time, authenticate with your TIDAL account:
+
+```bash
+python3 -c "from mcp_tidal.client import TidalClient; TidalClient().login()"
+```
+
+Session saved to `/tmp/tidal-session-oauth.json`.
+
+### 2. Claude Desktop
+
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "tidal": {
+      "command": "mcp-tidal"
+    }
+  }
+}
+```
+
+## Available Tools
+
+**Authentication**
+- `tidal_login()` - Browser authentication
+- `check_auth()` - Check status
+
+**Search & Metadata**
+- `search_music(query, limit)` - Search all content
+- `get_track(track_id)` - Track details
+- `get_album(album_id)` - Album details
+- `get_artist(artist_id)` - Artist details
+
+**Favorites & Recommendations**
+- `get_favorite_tracks(limit)` - Your favorite tracks
+- `get_track_recommendations(track_id, limit)` - Suggestions
+
+**Playlists**
+- `get_user_playlists()` - Your playlists
+- `get_playlist_tracks(playlist_id, limit)` - Playlist tracks
+- `create_playlist(title, description, track_ids)` - Create playlist
+- `delete_playlist(playlist_id)` - Delete playlist
+
+## Transport Modes
+
+### stdio (default - for Claude Desktop)
+```bash
+mcp-tidal
+```
+
+### SSE (Server-Sent Events)
+```bash
+mcp-tidal-sse  # Runs on http://0.0.0.0:8000/sse
+```
+
+### HTTP Streamable
+```bash
+mcp-tidal-http  # Runs on http://127.0.0.1:8000/mcp
+```
