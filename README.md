@@ -59,6 +59,8 @@ Session saved to `/tmp/tidal-session-oauth.json`.
 - `get_user_playlists()` - Your playlists
 - `get_playlist_tracks(playlist_id, limit)` - Playlist tracks
 - `create_playlist(title, description, track_ids)` - Create playlist
+- `add_tracks_to_playlist(playlist_id, track_ids)` - Add tracks to playlist
+- `remove_tracks_from_playlist(playlist_id, track_indices)` - Remove tracks from playlist
 - `delete_playlist(playlist_id)` - Delete playlist
 
 ## Transport Modes

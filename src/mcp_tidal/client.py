@@ -317,6 +317,64 @@ class TidalClient:
         tracks = playlist.items(limit=limit)
         return [self._format_track(track) for track in tracks]
 
+    def add_tracks_to_playlist(self, playlist_id: str, track_ids: list[str]) -> dict[str, Any]:
+        """Add tracks to an existing playlist.
+
+        Args:
+            playlist_id: TIDAL playlist ID
+            track_ids: List of track IDs to add
+
+        Returns:
+            Dictionary with operation status
+
+        Raises:
+            TidalAuthenticationError: If not authenticated
+        """
+        session = self._get_session()
+        playlist = session.playlist(playlist_id)
+        
+        if not playlist:
+            raise TidalAPIError(f"Playlist with ID {playlist_id} not found")
+        
+        playlist.add(track_ids)
+        
+        return {
+            "status": "success",
+            "message": f"Added {len(track_ids)} track(s) to playlist {playlist_id}",
+            "playlist_id": playlist_id,
+            "tracks_added": len(track_ids),
+        }
+
+    def remove_tracks_from_playlist(self, playlist_id: str, track_indices: list[int]) -> dict[str, Any]:
+        """Remove tracks from an existing playlist by their position.
+
+        Args:
+            playlist_id: TIDAL playlist ID
+            track_indices: List of track positions to remove (1-based, as shown in get_playlist_tracks)
+
+        Returns:
+            Dictionary with operation status
+
+        Raises:
+            TidalAuthenticationError: If not authenticated
+        """
+        session = self._get_session()
+        playlist = session.playlist(playlist_id)
+        
+        if not playlist:
+            raise TidalAPIError(f"Playlist with ID {playlist_id} not found")
+        
+        # Convert 1-based indices to 0-based for tidalapi
+        zero_based_indices = [idx - 1 for idx in track_indices]
+        playlist.remove_by_indices(zero_based_indices)
+        
+        return {
+            "status": "success",
+            "message": f"Removed {len(track_indices)} track(s) from playlist {playlist_id}",
+            "playlist_id": playlist_id,
+            "tracks_removed": len(track_indices),
+        }
+
     def delete_playlist(self, playlist_id: str) -> dict[str, str]:
         """Delete a TIDAL playlist.
 
