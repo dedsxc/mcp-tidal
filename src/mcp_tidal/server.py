@@ -410,6 +410,50 @@ def create_playlist(
 
 
 @mcp.tool()
+def add_tracks_to_playlist(playlist_id: str, track_ids: list[str]) -> str:
+    """Add tracks to an existing playlist.
+
+    Args:
+        playlist_id: Playlist ID to add tracks to
+        track_ids: List of track IDs to add
+
+    Returns:
+        Confirmation message
+    """
+    try:
+        client = get_client()
+        result = client.add_tracks_to_playlist(playlist_id, track_ids)
+        return f"✅ {result['message']}"
+    except TidalAuthenticationError:
+        return "❌ Not authenticated. Please use tidal_login() first."
+    except Exception as e:
+        logger.exception("Error adding tracks to playlist")
+        return f"❌ Error: {str(e)}"
+
+
+@mcp.tool()
+def remove_tracks_from_playlist(playlist_id: str, track_indices: list[int]) -> str:
+    """Remove tracks from an existing playlist.
+
+    Args:
+        playlist_id: Playlist ID to remove tracks from
+        track_indices: List of track positions to remove (1-based, as shown in get_playlist_tracks)
+
+    Returns:
+        Confirmation message
+    """
+    try:
+        client = get_client()
+        result = client.remove_tracks_from_playlist(playlist_id, track_indices)
+        return f"✅ {result['message']}"
+    except TidalAuthenticationError:
+        return "❌ Not authenticated. Please use tidal_login() first."
+    except Exception as e:
+        logger.exception("Error removing tracks from playlist")
+        return f"❌ Error: {str(e)}"
+
+
+@mcp.tool()
 def delete_playlist(playlist_id: str) -> str:
     """Delete a playlist from the user's account.
 
