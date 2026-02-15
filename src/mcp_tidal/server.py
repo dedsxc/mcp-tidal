@@ -505,5 +505,5 @@ def main_sse():
 
 def main_http():
     """Entry point for mcp-tidal-http command (HTTP mode on /mcp)."""
-    serve(transport="streamable-http", host="127.0.0.1", port=8000)
+    serve(transport="streamable-http", host="0.0.0.0", port=8000)
 
