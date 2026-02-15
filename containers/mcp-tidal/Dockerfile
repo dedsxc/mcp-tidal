@@ -11,11 +11,11 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Copy project files
-COPY pyproject.toml ./
+COPY pyproject.toml README.md ./
 COPY src/ ./src/
 
 # Install dependencies
-RUN pip install --no-cache-dir -e .
+RUN pip install --no-cache-dir .
 
 # Expose HTTP/SSE port
 EXPOSE 8000
