@@ -9,8 +9,6 @@ from typing import Any, Callable
 import tidalapi
 from tidalapi.session import Session
 
-from .config import TidalConfig
-
 logger = logging.getLogger(__name__)
 
 
@@ -93,13 +91,8 @@ class TidalAuthenticationError(TidalAPIError):
 class TidalClient:
     """Client for TIDAL API using tidalapi."""
 
-    def __init__(self, config: TidalConfig | None = None) -> None:
-        """Initialize TIDAL client.
-
-        Args:
-            config: TIDAL API configuration (optional, uses defaults if not provided)
-        """
-        self.config = config or TidalConfig()
+    def __init__(self) -> None:
+        """Initialize TIDAL client."""
         self._session: BrowserSession | None = None
         
         # Use temp directory for session file

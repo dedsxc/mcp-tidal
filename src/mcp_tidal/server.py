@@ -5,7 +5,6 @@ import logging
 from fastmcp import FastMCP
 
 from .client import TidalClient, TidalAPIError, TidalAuthenticationError
-from .config import TidalConfig
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -22,8 +21,7 @@ def get_client() -> TidalClient:
     """Get or create TIDAL client instance."""
     global _client
     if _client is None:
-        config = TidalConfig()
-        _client = TidalClient(config)
+        _client = TidalClient()
     return _client
 
 
