@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.0.0...mcp-tidal-1.0.1) (2026-02-15)
+
+
+### Bug Fixes
+
+* **dockerfile:** correct file to import ([10a18e1](https://github.com/dedsxc/mcp-tidal/commit/10a18e1b36f7c3f4e982cf584faabae81533a7f8))
+
 ## 1.0.0 (2026-02-15)
 
 
