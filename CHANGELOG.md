@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.1.0...mcp-tidal-1.1.1) (2026-02-15)
+
+
+### Bug Fixes
+
+* listen to 0.0.0.0 for http-streamable protocol ([88ae706](https://github.com/dedsxc/mcp-tidal/commit/88ae706e5c1cd49cb98ff7af186e67ef0040f142))
+
 ## [1.1.0](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.0.1...mcp-tidal-1.1.0) (2026-02-15)
 
 
