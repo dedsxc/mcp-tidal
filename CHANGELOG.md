@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.1.2...mcp-tidal-1.1.3) (2026-03-22)
+
+
+### Bug Fixes
+
+* **client:** use correct tidalapi namespace for Artist and Playlist models ([57dedfa](https://github.com/dedsxc/mcp-tidal/commit/57dedfa225e4250ea38ac70069202c6eaab0a779))
+
 ## [1.1.2](https://github.com/dedsxc/mcp-tidal/compare/mcp-tidal-1.1.1...mcp-tidal-1.1.2) (2026-02-15)
 
 
