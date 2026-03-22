@@ -444,12 +444,12 @@ class TidalClient:
                 results["albums"] = [self._format_album(album) for album in search_results["albums"]]
         
         if tidal_type in ("artists", "all"):
-            search_results = session.search(query, models=[tidalapi.media.Artist], limit=limit)
+            search_results = session.search(query, models=[tidalapi.Artist], limit=limit)
             if "artists" in search_results and search_results["artists"]:
                 results["artists"] = [self._format_artist(artist) for artist in search_results["artists"]]
         
         if tidal_type in ("playlists", "all"):
-            search_results = session.search(query, models=[tidalapi.media.Playlist], limit=limit)
+            search_results = session.search(query, models=[tidalapi.Playlist], limit=limit)
             if "playlists" in search_results and search_results["playlists"]:
                 results["playlists"] = [self._format_playlist(playlist) for playlist in search_results["playlists"]]
         
